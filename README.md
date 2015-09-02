@@ -1,5 +1,5 @@
-#Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst
-
+#Vagrant + Spark + Zeppelin + Hadoop a Toolbox to the Data Analyst
+Modified for UCB MIDS W205 Students
 ##Instructions
 A step by step guide is available with the blog post: [Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst](http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/)
 
