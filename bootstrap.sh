@@ -25,17 +25,41 @@ apt-get update
 
 echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-export DEBIAN_FRONTEND=noninteractive 
-apt-get install -y --force-yes oracle-java8-installer oracle-java8-set-default
+export DEBIAN_FRONTEND=noninteractive
+apt-get install -y --force-yes oracle-java7-installer oracle-java7-set-default fontconfig
 
 sudo apt-get clean
 rm -rf /var/lib/apt/lists/*
 EOF
 java -version
 
+git config --global url."https://".insteadOf git://
+#python stuff
+apt-get update
+wget https://bootstrap.pypa.io/ez_setup.py -O - | python
+easy_install pip
+apt-get install -y --force-yes python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+
+#CDH stuff
+wget http://archive.cloudera.com/cdh5/one-click-install/trusty/amd64/cdh5-repository_1.0_all.deb
+dpkg -i cdh5-repository_1.0_all.deb
+apt-get -y --force-yes install hadoop-conf-pseudo
+sudo -u hdfs hdfs namenode -format
+/etc/init.d/hadoop-hdfs-namenode start
+/etc/init.d/hadoop-hdfs-datanode start
+/usr/lib/hadoop/libexec/init-hdfs.sh
+sudo -u hdfs hadoop fs -mkdir /user/vagrant
+sudo -u hdfs hadoop fs -chown vagrant /user/vagrant
+
+#Postgres stuff
+apt-get -y --force-yes install postgresql postgresql-contrib
+sudo -u postgres createuser -s vagrant
+sudo -u postgres createdb vagrant
+
+
 # APACHE SPARK
 export SPARK_VERSION=1.4.1
-export HADOOP_VERSION=2.4
+export HADOOP_VERSION=2.6
 export SPARK_PACKAGE=$SPARK_VERSION-bin-hadoop$HADOOP_VERSION
 export SPARK_HOME=/usr/spark-$SPARK_PACKAGE
 export PATH=$PATH:$SPARK_HOME/bin
@@ -72,7 +96,7 @@ git clone https://github.com/apache/incubator-zeppelin.git ${ZEPPELIN_HOME}
 git checkout d5ab911bf4419fa7c6f38945c6c8ad4946f8abf6
 
 cd ${ZEPPELIN_HOME}
-${MAVEN_HOME}/bin/mvn clean package -Pspark-1.4 -Dhadoop.version=2.4.0 -Phadoop-2.4 -DskipTests
+${MAVEN_HOME}/bin/mvn clean package -Pspark-1.4 -Dhadoop.version=2.6.0 -Phadoop-2.6 -DskipTests
 
 cat > ${ZEPPELIN_HOME}/conf/zeppelin-env.sh <<CONF
 export ZEPPELIN_MEM="-Xmx2048m"
