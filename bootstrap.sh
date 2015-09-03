@@ -9,8 +9,8 @@ apt-get install -y git vim wget curl net-tools unzip python npm
 EOF
 
 # JAVA
-export JAVA_HOME=/usr/jdk1.8.0_31
-export PATH=$PATH:$JAVA_HOME/bin
+#export JAVA_HOME=/usr/jdk1.8.0_31
+#export PATH=$PATH:$JAVA_HOME/bin
 
 echo
 echo
