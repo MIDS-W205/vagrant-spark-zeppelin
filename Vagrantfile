@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--cpus", "2"]
-    vb.customize ["modifyvm", :id, "--memory", "3072"]
+    vb.customize ["modifyvm", :id, "--memory", "4084"]
   end
 
   # Create a public network, which generally matched to bridged network.
@@ -44,6 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   config.vm.synced_folder "./data", "/opt/dataset"
   config.vm.synced_folder "./code", "/home/vagrant/code"
+  config.vm.synced_folder "./zepplin", "/usr/zeppelin"
 
   # View the documentation for the provider you're using for more
   # information on available options.
