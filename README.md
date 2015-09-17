@@ -12,14 +12,19 @@ You will install VirtualBox VM and Vagrant<BR>
 
 ###Configuration
 To create the VM with Vagrant, we will need the Vagrant settings which tell the VM all the libraries it needs to install.  The vagrant file located in the following github will provide those settings.
-1. ```cd /home/username/repos``` - Change into a directory where you want to clone the repo containing the vagrant settings. 
-2. Clone the repository to that directory: ```git clone https://github.com/MIDS-W205/vagrant-spark-zeppelin.git```
+
+1. ```cd /home/username/repos``` - Change into a directory where you want to clone the repo containing the vagrant settings
+2. ```git clone https://github.com/MIDS-W205/vagrant-spark-zeppelin.git``` - Clone the repository to that directory
 3. ```cd vagrant-spark-zeppelin``` - Change into the cloned directory
 4. ```vagrant up``` - Build the vagrant VM
-5. 
 
 ###Possible Issues
+I ran into a BUILD FAILURE: [ERROR] ... Failed to run task: npm install --color=false (error code 255) -> [Help 1] during the vagrant build.  With Vagrant still up and running, I fixed it by:
 
+1. ```vagrant halt``` - Bring down the Vagrant VM
+2. Download and install the latest Node.js from nodejs.org and then install bower using the following command ```sudo npm install -g bower```.
+3. ```vagrant up``` - Startup vagrant
+4. ```vagrant provision``` - Rerun the library installations from the vagrant file
 
 ##Acknowledge
 This is an installation of Apache Spark and Apache Zeppelin based on Debian [debian/jessie64](https://atlas.hashicorp.com/debian/boxes/jessie64)
